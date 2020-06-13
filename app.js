@@ -29,6 +29,7 @@ const mealTypesRouter = require('./routes/mealTypes');
 const menusRouter = require('./routes/menus');
 const componentsRouter = require('./routes/components');
 const generalRouter = require('./routes/general');
+const userRouter = require('./routes/user');
 
 
 // Middlewares
@@ -39,6 +40,7 @@ app.use('/menus', menusRouter);
 app.use('/components', componentsRouter);
 app.use('/meals', mealsRouter);
 app.use('/general', generalRouter);
+app.use('/users', userRouter);
 
 
 // Route to the documentation
