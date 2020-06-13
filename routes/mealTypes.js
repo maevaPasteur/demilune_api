@@ -31,7 +31,6 @@ router.post('/', async (req, res) => {
     });
     try {
         const data = await mealTypes.save();
-        component.create(data._id, 'meal');
         res.status(201).json(data);
     } catch(err) {
         res.status(400).json(err);
@@ -39,13 +38,25 @@ router.post('/', async (req, res) => {
 });
 
 // Updating one
-router.patch('/:id', (req, res) => {
-
+router.patch('/:id', async (req, res) => {
+    try {
+        const updatedMealType = await MealType.updateOne(
+            { _id: req.params.id },
+            { $set: { title: req.body.title } });
+        res.json(updatedMealType);
+    } catch (err) {
+        res.json({ message: err })
+    }
 });
 
 // Deleting one
-router.delete('/:id', (req, res) => {
-
+router.delete('/:id', async (req, res) => {
+    try {
+        const removeMealType = await MealType.remove({ _id: req.params.id });
+        res.json(removeMealType);
+    } catch(err) {
+        res.json({ message: err })
+    }
 });
 
 module.exports = router;

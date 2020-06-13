@@ -3,6 +3,8 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const path = require('path');
+const router = express.Router();
 
 
 // Connect to DB
@@ -37,6 +39,12 @@ app.use('/menus', menusRouter);
 app.use('/components', componentsRouter);
 app.use('/meals', mealsRouter);
 app.use('/general', generalRouter);
+
+
+// Route to the documentation
+app.get('/',function(req,res) {
+    res.sendFile(path.join(__dirname+'/documentation/index.html'));
+});
 
 
 app.listen(3000);

@@ -40,8 +40,22 @@ router.post('/', (req, res) => {
 });
 
 // Updating one
-router.patch('/', (req, res) => {
-
+router.patch('/:id', async (req, res) => {
+    try {
+        let newDatas = {};
+        let props = ['title', 'phone', 'address', 'pages', 'planning'];
+        props.forEach(prop => {
+            if(req.body[prop]) {
+                newDatas[prop] = req.body[prop]
+            }
+        });
+        const update = await General.updateOne(
+            { _id: req.params.id },
+            { $set: newDatas });
+        res.json(update);
+    } catch (err) {
+        res.json({ message: err })
+    }
 });
 
 

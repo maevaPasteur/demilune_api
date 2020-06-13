@@ -25,15 +25,17 @@ router.get('/:id', async (req,res) => {
 });
 
 // Updating one
-router.patch('/:id', (req, res) => {
-
+router.patch('/:id', async (req, res) => {
+    try {
+        const update = await Component.updateOne(
+            { _id: req.params.id },
+            { $set: {type: req.params.type} });
+        res.json(update);
+    } catch (err) {
+        res.json({ message: err })
+    }
 });
 
-
-// Deleting one
-router.delete('/:id', (req, res) => {
-
-});
 
 
 module.exports = router;

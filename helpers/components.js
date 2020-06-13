@@ -37,19 +37,14 @@ function removeFromPage(componentId) {
         if(err) {
             console.log(err)
         } else {
-            console.log('- - - - - - - -');
-            console.log('result');
-            console.log(results);
             results.forEach( async result => {
-                console.log('- - -');
-                console.log(result);
                 const newArray = removeFromArray(result.content, componentId);
                 try {
                     const updatedItem = await Page.updateOne(
                         { _id: result._id },
                         { $set: { content: newArray } }
                     );
-                    console.log(updatedItem)
+                    console.log('Success page updated', updatedItem)
                 } catch(err) {
                     console.log(err)
                 }
@@ -66,7 +61,6 @@ function removeFromMenu(componentId, props) {
             console.log(err)
         } else {
             results.forEach( async result => {
-                console.log(result);
                 const newArray = removeFromArray(result.meals, componentId);
                 try {
                     let query2 = {};
@@ -75,7 +69,7 @@ function removeFromMenu(componentId, props) {
                         { _id: result._id },
                         { $set: query2 }
                     );
-                    console.log(updatedItem)
+                    console.log('Success menu updated', updatedItem)
                 } catch(err) {
                     console.log(err)
                 }
