@@ -13,8 +13,13 @@ router.get('/', async (req,res) => {
 });
 
 // Getting one
-router.get('/:id', (req,res) => {
-    res.send('Vous êtes sur la page '+ req.params.id)
+router.get('/:id', async (req,res) => {
+    try {
+        const page = await Page.findById(req.params.id);
+        res.json(page);
+    } catch(err) {
+        res.status(500).json(err)
+    }
 });
 
 // Creating one
@@ -32,13 +37,32 @@ router.post('/', async (req, res) => {
 });
 
 // Updating one
-router.patch('/:id', (req, res) => {
-
+router.patch('/:id', async (req, res) => {
+    try {
+        let newDatas = {};
+        let props = ['title', 'content'];
+        props.forEach(prop => {
+            if(req.body[prop]) {
+                newDatas[prop] = req.body[prop]
+            }
+        });
+        const updatePage = await Page.updateOne(
+            { _id: req.params.id },
+            { $set: newDatas });
+        res.json(updatePage);
+    } catch (err) {
+        res.json({ message: err })
+    }
 });
 
 // Deleting one
-router.delete('/:id', (req, res) => {
-
+router.delete('/:id', async (req, res) => {
+    try {
+        const removePage = await Page.remove({ _id: req.params.id });
+        res.json(removePage);
+    } catch(err) {
+        res.json({ message: err })
+    }
 });
 
 module.exports = router;

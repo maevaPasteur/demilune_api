@@ -8,7 +8,7 @@ const pageSchema = new mongoose.Schema({
     content: {
         type: Array,
         required: true,
-        default: []
+        default: [String]
     }
 });
 

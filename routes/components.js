@@ -15,8 +15,13 @@ router.get('/', async (req,res) => {
 
 
 // Getting one
-router.get('/:id', (req,res) => {
-    res.send(req.params.id)
+router.get('/:id', async (req,res) => {
+    try {
+        const page = await Component.findById(req.params.id);
+        res.json(page);
+    } catch(err) {
+        res.status(500).json(err)
+    }
 });
 
 // Updating one

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Meal = require('../models/Meal');
-const createComponent = require('../helpers/createComponent');
+const component = require('../helpers/components');
 
 // Getting all
 router.get('/', async (req,res) => {
@@ -14,8 +14,13 @@ router.get('/', async (req,res) => {
 });
 
 // Getting one
-router.get('/:id', (req,res) => {
-    res.send('Voici le plat : '+ req.params.id)
+router.get('/:id', async (req,res) => {
+    try {
+        const page = await Meal.findById(req.params.id);
+        res.json(page);
+    } catch(err) {
+        res.status(500).json(err)
+    }
 });
 
 // Creating one
@@ -32,7 +37,7 @@ router.post('/', async (req, res) => {
     });
     try {
         const data = await meal.save();
-        createComponent(data._id, 'meal');
+        component.create(data._id, 'meal');
         res.status(201).json(data);
     } catch(err) {
         res.status(400).json(err);
@@ -40,13 +45,33 @@ router.post('/', async (req, res) => {
 });
 
 // Updating one
-router.patch('/:id', (req, res) => {
-
+router.patch('/:id', async (req, res) => {
+    try {
+        let newDatas = {};
+        let props =  ['title', 'description', 'infos', 'price', 'variant_1_title', 'variant_1_description', 'variant_1_price', 'variant_2_title', 'variant_2_description', 'variant_2_price'];
+        props.forEach(prop => {
+            if(req.body[prop]) {
+                newDatas[prop] = req.body[prop]
+            }
+        });
+        const updateMeal = await Meal.updateOne(
+            { _id: req.params.id },
+            { $set: newDatas });
+        res.json(updateMeal);
+    } catch(err) {
+        res.json({ message: err })
+    }
 });
 
 // Deleting one
-router.delete('/:id', (req, res) => {
-
+router.delete('/:id', async (req, res) => {
+    try {
+        const removeMeal = await Meal.deleteOne({ _id: req.params.id });
+        component.delete(req.params.id);
+        res.json(removeMeal);
+    } catch(err) {
+        res.json({ message: err })
+    }
 });
 
 module.exports = router;

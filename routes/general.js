@@ -44,9 +44,5 @@ router.patch('/', (req, res) => {
 
 });
 
-// Deleting one
-router.delete('/', (req, res) => {
-
-});
 
 module.exports = router;
