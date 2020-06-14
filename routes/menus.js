@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
         title: req.body.title,
         price: req.body.price
     });
-    let items = ['description', 'starters', 'meals', 'cheeses', 'desserts'];
+    let items = ['description', 'starters', 'meals', 'desserts'];
     items.forEach(item => {
        if(req.body[item]) {
            menu[item] = req.body[item]
@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
 router.patch('/:id', async (req, res) => {
     try {
         let newDatas = {};
-        let props = ['title', 'description', 'price', 'starters', 'meals', 'cheeses', 'desserts'];
+        let props = ['title', 'description', 'price', 'starters', 'meals', 'desserts'];
         props.forEach(prop => {
             if(req.body[prop]) {
                 newDatas[prop] = req.body[prop]

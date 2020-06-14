@@ -23,11 +23,6 @@ const menuSchema = new mongoose.Schema({
         required: true,
         default: [String]
     },
-    cheeses: {
-        type: Array,
-        required: true,
-        default: [String]
-    },
     desserts: {
         type: Array,
         required: true,

@@ -24,22 +24,18 @@ app.use(express.json());
 
 
 // Import Routes
-const pagesRouter = require('./routes/pages');
 const titlesRouter = require('./routes/titles');
 const mealsRouter = require('./routes/meals');
 const mealTypesRouter = require('./routes/mealTypes');
 const menusRouter = require('./routes/menus');
-const componentsRouter = require('./routes/components');
 const generalRouter = require('./routes/general');
 const userRouter = require('./routes/user');
 
 
 // Middlewares
-app.use('/pages', pagesRouter);
 app.use('/titles', titlesRouter);
 app.use('/types', mealTypesRouter);
 app.use('/menus', menusRouter);
-app.use('/components', componentsRouter);
 app.use('/meals', mealsRouter);
 app.use('/general', generalRouter);
 app.use('/users', userRouter);

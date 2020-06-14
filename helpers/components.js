@@ -1,6 +1,5 @@
 const Component = require('../models/Component');
 const Menu = require('../models/Menu');
-const Page = require('../models/Page');
 
 module.exports = {
     create: function (id, type) {
@@ -19,49 +18,26 @@ module.exports = {
     delete: async function (id) {
         try {
             const removeComponent = await Component.findOneAndDelete({ item_id: id });
-            const componentId = removeComponent._id.toString();
-            console.log('id', componentId);
-            removeFromMenu(componentId, 'starters');
-            removeFromMenu(componentId, 'meals');
-            removeFromMenu(componentId, 'cheeses');
-            removeFromMenu(componentId, 'desserts');
-            removeFromPage(componentId);
+            const id = removeComponent._id.toString();
+            console.log('id', id);
+            removeFromMenu(id, 'starters');
+            removeFromMenu(id, 'meals');
+            removeFromMenu(id, 'desserts');
         } catch(err) {
             console.log(err)
         }
     }
 };
 
-function removeFromPage(componentId) {
-    Page.find({ content: { $all: [componentId] } }).exec((err, results) => {
-        if(err) {
-            console.log(err)
-        } else {
-            results.forEach( async result => {
-                const newArray = removeFromArray(result.content, componentId);
-                try {
-                    const updatedItem = await Page.updateOne(
-                        { _id: result._id },
-                        { $set: { content: newArray } }
-                    );
-                    console.log('Success page updated', updatedItem)
-                } catch(err) {
-                    console.log(err)
-                }
-            })
-        }
-    });
-}
-
-function removeFromMenu(componentId, props) {
+function removeFromMenu(id, props) {
     let query = {};
-    query[props] = { $all: [componentId] };
+    query[props] = { $all: [id] };
     Menu.find(query).exec((err, results) => {
         if(err) {
             console.log(err)
         } else {
             results.forEach( async result => {
-                const newArray = removeFromArray(result.meals, componentId);
+                const newArray = removeFromArray(result.meals, id);
                 try {
                     let query2 = {};
                     query2[props] = newArray;
