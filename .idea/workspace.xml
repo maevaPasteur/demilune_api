@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e419a097-72a8-49ac-b3fa-2b7ce62db07b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/models/User.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/General.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/General.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Meal.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Meal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/general.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/general.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/meals.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/meals.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -70,7 +69,7 @@
       <option name="presentableId" value="Default" />
       <updated>1591870823044</updated>
       <workItem from="1591870824465" duration="28889000" />
-      <workItem from="1592035750231" duration="14162000" />
+      <workItem from="1592035750231" duration="23315000" />
     </task>
     <servers />
   </component>

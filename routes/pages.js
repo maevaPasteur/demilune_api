@@ -49,6 +49,7 @@ router.patch('/:id', async (req, res) => {
         const updatePage = await Page.updateOne(
             { _id: req.params.id },
             { $set: newDatas });
+
         res.json(updatePage);
     } catch (err) {
         res.json({ message: err })

@@ -25,19 +25,11 @@ const mealSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    variant_1_description: {
-        type: String,
-        required: false
-    },
     variant_1_price: {
         type: Number,
         required: false
     },
     variant_2_title: {
-        type: String,
-        required: false
-    },
-    variant_2_description: {
         type: String,
         required: false
     },

@@ -13,30 +13,25 @@ router.get('/', async (req,res) => {
 });
 
 // Creating
-router.post('/', (req, res) => {
-
-    // Verify is General has already been created
-    General.find({}, async (err) => {
-
-        // Create one if no one exists
-       if(err) {
-           const general = new General();
-           let items = ['title', 'phone', 'address', 'pages', 'planning'];
-           items.forEach(item => {
-               if(req.body[item]) {
-                   general[item] = req.body[item]
-               }
-           });
-           try {
-               const data = await general.save();
-               res.status(201).json(data);
-           } catch(err) {
-               res.status(400).json(err);
-           }
-       } else {
-           res.send('Général a déjà été initialisé. Vous ne pouvez pas en créer un deuxième.')
-       }
-    });
+router.post('/', async (req, res) => {
+    try {
+        const oldGeneral = General.find();
+        res.send(oldGeneral);
+    } catch(err) {
+        const general = new General();
+        let items = ['title', 'button', 'title_2', 'text_2', 'pages', 'day_1', 'day_2', 'day_3', 'day_4', 'day_5', 'day_6', 'day_7', 'button_2'];
+        items.forEach(item => {
+            if(req.body[item]) {
+                general[item] = req.body[item]
+            }
+        });
+        try {
+            const data = await general.save();
+            res.status(201).json(data);
+        } catch(err) {
+            res.status(400).json(err);
+        }
+    }
 });
 
 // Updating one
