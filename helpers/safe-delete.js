@@ -1,33 +1,39 @@
-const Component = require('../models/Component');
 const Menu = require('../models/Menu');
+const General = require('../models/General');
 
 module.exports = {
-    create: function (id, type) {
-        const component = new Component({
-            type: type,
-            item_id: id
-        });
-        component.save((err, data) => {
-            if(err){
-                console.log("Error" ,err);
-            } else {
-                console.log("Success new component", data);
-            }
-        });
-    },
-    delete: async function (id) {
-        try {
-            const removeComponent = await Component.findOneAndDelete({ item_id: id });
-            const id = removeComponent._id.toString();
-            console.log('id', id);
-            removeFromMenu(id, 'starters');
-            removeFromMenu(id, 'meals');
-            removeFromMenu(id, 'desserts');
-        } catch(err) {
-            console.log(err)
-        }
+    meal: function (id) {
+        removeFromMenu(id, 'starters');
+        removeFromMenu(id, 'meals');
+        removeFromMenu(id, 'desserts');
+        removeFromPage(id)
     }
 };
+
+function removeFromPage(id) {
+    General.find().exec(async (err, results) => {
+        if(err) {
+            console.log(err)
+        } else {
+            let pages = results[0].pages;
+            pages.forEach(page => {
+                if(page.content.includes(id)) {
+                    page.content = removeFromArray(page.content, id);
+                }
+            });
+            console.log(pages);
+            try {
+                const updatedItem = await General.updateOne(
+                    { _id: results[0]._id },
+                    { $set: { pages: pages } }
+                );
+                console.log('Success page updated', updatedItem)
+            } catch(err) {
+                console.log(err)
+            }
+        }
+    });
+}
 
 function removeFromMenu(id, props) {
     let query = {};

@@ -24,7 +24,6 @@ app.use(express.json());
 
 
 // Import Routes
-const titlesRouter = require('./routes/titles');
 const mealsRouter = require('./routes/meals');
 const mealTypesRouter = require('./routes/mealTypes');
 const menusRouter = require('./routes/menus');
@@ -33,7 +32,6 @@ const userRouter = require('./routes/user');
 
 
 // Middlewares
-app.use('/titles', titlesRouter);
 app.use('/types', mealTypesRouter);
 app.use('/menus', menusRouter);
 app.use('/meals', mealsRouter);

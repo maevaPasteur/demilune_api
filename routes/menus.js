@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Menu = require('../models/Menu');
-const component = require('../helpers/components');
 
 // Getting all
 router.get('/', async (req,res) => {
@@ -37,7 +36,6 @@ router.post('/', async (req, res) => {
     });
     try {
         const data = await menu.save();
-        component.create(data._id, 'menu');
         res.status(201).json(data);
     } catch(err) {
         res.status(400).json(err);
@@ -67,7 +65,10 @@ router.patch('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     try {
         const removePage = await Menu.remove({ _id: req.params.id });
+        /*
         component.remove(req.params.id);
+
+         */
         res.json(removePage);
     } catch(err) {
         res.json({ message: err })

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Meal = require('../models/Meal');
-const component = require('../helpers/components');
+const safeDelete = require('../helpers/safe-delete');
 
 // Getting all
 router.get('/', async (req,res) => {
@@ -37,7 +37,6 @@ router.post('/', async (req, res) => {
     });
     try {
         const data = await meal.save();
-        component.create(data._id, 'meal');
         res.status(201).json(data);
     } catch(err) {
         res.status(400).json(err);
@@ -67,7 +66,7 @@ router.patch('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     try {
         const removeMeal = await Meal.deleteOne({ _id: req.params.id });
-        component.delete(req.params.id);
+        safeDelete.meal(req.params.id);
         res.json(removeMeal);
     } catch(err) {
         res.json({ message: err })

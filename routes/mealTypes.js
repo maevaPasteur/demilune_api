@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const MealType = require('../models/MealType');
 
-const component = require('../helpers/components');
 
 // Getting all
 router.get('/', async (req,res) => {
