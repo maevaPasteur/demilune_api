@@ -1,21 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const Menu = require('../models/Menu');
+const General = require('../models/General');
 
 // Getting all
 router.get('/', async (req,res) => {
     try {
-        const menus = await Menu.find();
-        res.json(menus);
+        const general = await General.find();
+        pages = general[0].pages.filter(page => page.type === 'menu');
+        res.json(pages);
     } catch(err) {
         res.status(500).json({message: err.message})
     }
 });
 
+
 // Getting one
 router.get('/:id', async (req,res) => {
     try {
-        const page = await Menu.findById(req.params.id);
+        const general = await General.find();
+        page = general[0].pages.filter(page => page.id === req.params.id );
         res.json(page);
     } catch(err) {
         res.status(500).json(err)
@@ -24,54 +27,26 @@ router.get('/:id', async (req,res) => {
 
 // Creating one
 router.post('/', async (req, res) => {
-    const menu = new Menu({
-        title: req.body.title,
-        price: req.body.price
-    });
-    let items = ['description', 'starters', 'meals', 'desserts'];
-    items.forEach(item => {
-       if(req.body[item]) {
-           menu[item] = req.body[item]
-       }
-    });
     try {
-        const data = await menu.save();
-        res.status(201).json(data);
-    } catch(err) {
-        res.status(400).json(err);
-    }
-});
-
-// Updating one
-router.patch('/:id', async (req, res) => {
-    try {
-        let newDatas = {};
-        let props = ['title', 'description', 'price', 'starters', 'meals', 'desserts'];
-        props.forEach(prop => {
-            if(req.body[prop]) {
-                newDatas[prop] = req.body[prop]
+        let general = await General.find();
+        general = general[0];
+        const menu = {
+            id: Number(new Date()).toString(),
+            title: req.body.title,
+            price: req.body.price,
+            type: 'menu'
+        };
+        let items = ['description', 'starters', 'meals', 'desserts'];
+        items.forEach(item => {
+            if(req.body[item]) {
+                menu[item] = req.body[item]
             }
         });
-        const updateMenu = await Menu.updateOne(
-            { _id: req.params.id },
-            { $set: newDatas });
-        res.json(updateMenu);
+        general.pages.push(menu);
+        const update = await General.findByIdAndUpdate(general._id, general);
+        res.status(201).json(update);
     } catch(err) {
-        res.json({ message: err })
-    }
-});
-
-// Deleting one
-router.delete('/:id', async (req, res) => {
-    try {
-        const removePage = await Menu.remove({ _id: req.params.id });
-        /*
-        component.remove(req.params.id);
-
-         */
-        res.json(removePage);
-    } catch(err) {
-        res.json({ message: err })
+        res.status(400).json(err);
     }
 });
 

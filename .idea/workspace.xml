@@ -2,16 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e419a097-72a8-49ac-b3fa-2b7ce62db07b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/helpers/safe-delete.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helpers/components.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Component.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Title.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/mealTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/mealTypes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/meals.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/meals.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helpers/safe-delete.js" beforeDir="false" afterPath="$PROJECT_DIR$/helpers/safe-delete.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Menu.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/menus.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/menus.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/titles.js" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -73,7 +67,7 @@
       <option name="presentableId" value="Default" />
       <updated>1591870823044</updated>
       <workItem from="1591870824465" duration="28889000" />
-      <workItem from="1592035750231" duration="31838000" />
+      <workItem from="1592035750231" duration="39338000" />
     </task>
     <servers />
   </component>

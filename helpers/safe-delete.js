@@ -1,11 +1,7 @@
-const Menu = require('../models/Menu');
 const General = require('../models/General');
 
 module.exports = {
     meal: function (id) {
-        removeFromMenu(id, 'starters');
-        removeFromMenu(id, 'meals');
-        removeFromMenu(id, 'desserts');
         removeFromPage(id)
     }
 };
@@ -16,12 +12,14 @@ function removeFromPage(id) {
             console.log(err)
         } else {
             let pages = results[0].pages;
+            let props = ['content', 'starters', 'meals', 'desserts'];
             pages.forEach(page => {
-                if(page.content.includes(id)) {
-                    page.content = removeFromArray(page.content, id);
-                }
+                props.forEach(prop => {
+                    if(page[prop] && page[prop].includes(id)) {
+                        page[prop] = removeFromArray(page[prop], id)
+                    }
+                });
             });
-            console.log(pages);
             try {
                 const updatedItem = await General.updateOne(
                     { _id: results[0]._id },
@@ -31,31 +29,6 @@ function removeFromPage(id) {
             } catch(err) {
                 console.log(err)
             }
-        }
-    });
-}
-
-function removeFromMenu(id, props) {
-    let query = {};
-    query[props] = { $all: [id] };
-    Menu.find(query).exec((err, results) => {
-        if(err) {
-            console.log(err)
-        } else {
-            results.forEach( async result => {
-                const newArray = removeFromArray(result.meals, id);
-                try {
-                    let query2 = {};
-                    query2[props] = newArray;
-                    const updatedItem = await Menu.updateOne(
-                        { _id: result._id },
-                        { $set: query2 }
-                    );
-                    console.log('Success menu updated', updatedItem)
-                } catch(err) {
-                    console.log(err)
-                }
-            })
         }
     });
 }
