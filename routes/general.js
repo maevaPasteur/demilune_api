@@ -53,5 +53,16 @@ router.patch('/:id', async (req, res) => {
     }
 });
 
+// Updating one
+router.patch('/', async (req, res) => {
+    try {
+        let general = await General.find();
+        const update = await General.findByIdAndUpdate(general[0]._id, req.body.data);
+        res.json(update);
+    } catch (err) {
+        res.json({ message: err })
+    }
+});
+
 
 module.exports = router;
